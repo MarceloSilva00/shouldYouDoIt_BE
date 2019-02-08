@@ -5,8 +5,6 @@ import com.mmmteam.doit.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class AnswerServiceImpl implements AnswerService {
 

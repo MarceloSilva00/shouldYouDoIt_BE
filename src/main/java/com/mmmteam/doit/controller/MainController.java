@@ -15,11 +15,8 @@ import java.util.Random;
 @CrossOrigin
 public class MainController {
 
-    private List<Answer> list = new ArrayList<>();
     private AnswerService answerService;
 
-
-    Random r = new Random();
 
     @Autowired
     public MainController(AnswerService answerService) {
@@ -29,7 +26,6 @@ public class MainController {
     @GetMapping
     public Answer answer() {
         return answerService.random();
-        //return list.get(r.nextInt(list.size()));
     }
 
     @GetMapping("/all")
