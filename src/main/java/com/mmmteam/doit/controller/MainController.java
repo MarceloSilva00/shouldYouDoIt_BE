@@ -27,7 +27,7 @@ public class MainController {
             Answer a = answerService.random();
             return new SearchResult(a.getMsg(), a.getImg());
         } else {
-            Answer a = answerService.customResponse(search);
+            Answer a = answerService.customResponse(search.toLowerCase());
             return new SearchResult(a.getMsg(), a.getImg());
         }
     }
