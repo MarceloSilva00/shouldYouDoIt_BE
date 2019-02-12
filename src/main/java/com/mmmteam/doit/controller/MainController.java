@@ -1,8 +1,6 @@
 package com.mmmteam.doit.controller;
 
 import com.mmmteam.doit.domain.Answer;
-import com.mmmteam.doit.domain.Custom;
-import com.mmmteam.doit.domain.SearchBody;
 import com.mmmteam.doit.domain.SearchResult;
 import com.mmmteam.doit.service.AnswerService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,12 +22,12 @@ public class MainController {
     }
 
     @GetMapping
-    public SearchResult answer(@RequestBody(required = false) SearchBody searchBody) {
-        if (searchBody == null || searchBody.getSearch() == null) {
+    public SearchResult answer(@RequestParam(value = "search",required = false,defaultValue = "random") String search) {
+        if (search.equals("random")) {
             Answer a = answerService.random();
             return new SearchResult(a.getMsg(), a.getImg());
         } else {
-            Answer a = answerService.customResponse(searchBody.getSearch());
+            Answer a = answerService.customResponse(search);
             return new SearchResult(a.getMsg(), a.getImg());
         }
     }
