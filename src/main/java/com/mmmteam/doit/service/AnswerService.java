@@ -11,4 +11,6 @@ public interface AnswerService {
     Answer add(Answer answer);
 
     void remove(long id);
+
+    Answer customResponse(String search);
 }
