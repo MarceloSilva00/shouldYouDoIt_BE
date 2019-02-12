@@ -7,10 +7,13 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Answer {
+public class Custom {
 
-    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    private String key;
 
     @NotNull
     private String msg;
@@ -18,10 +21,11 @@ public class Answer {
     @NotNull
     private String img;
 
-    private Answer() {
+    public Custom() {
     }
 
-    public Answer(@NotNull String msg, @NotNull String img) {
+    public Custom(@NotNull String key, @NotNull String msg, @NotNull String img) {
+        this.key = key;
         this.msg = msg;
         this.img = img;
     }
@@ -32,6 +36,14 @@ public class Answer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getMsg() {
@@ -48,5 +60,15 @@ public class Answer {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "Custom{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", msg='" + msg + '\'' +
+                ", img='" + img + '\'' +
+                '}';
     }
 }
