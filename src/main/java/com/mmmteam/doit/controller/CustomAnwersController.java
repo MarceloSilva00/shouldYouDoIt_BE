@@ -22,6 +22,7 @@ public class CustomAnwersController {
 
     @PostMapping
     public Custom add(@RequestBody Custom custom){
+        custom.setKey(custom.getKey().toLowerCase());
         return customAnswerRepository.save(custom);
     }
 
