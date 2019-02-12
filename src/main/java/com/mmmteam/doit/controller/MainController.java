@@ -1,14 +1,15 @@
 package com.mmmteam.doit.controller;
 
 import com.mmmteam.doit.domain.Answer;
+import com.mmmteam.doit.domain.Custom;
+import com.mmmteam.doit.domain.SearchBody;
+import com.mmmteam.doit.domain.SearchResult;
 import com.mmmteam.doit.service.AnswerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 @RequestMapping
@@ -18,19 +19,28 @@ public class MainController {
     private AnswerService answerService;
 
 
-    @Autowired
-    public MainController(AnswerService answerService) {
+    public MainController(@Qualifier(value = "answerService") AnswerService answerService) {
         this.answerService = answerService;
     }
 
     @GetMapping
-    public Answer answer() {
-        return answerService.random();
+    public SearchResult answer(@RequestBody(required = false) SearchBody searchBody) {
+        if (searchBody == null || searchBody.getSearch() == null) {
+            Answer a = answerService.random();
+            return new SearchResult(a.getMsg(), a.getImg());
+        } else {
+            Answer a = answerService.customResponse(searchBody.getSearch());
+            return new SearchResult(a.getMsg(), a.getImg());
+        }
     }
 
     @GetMapping("/all")
-    public Iterable<Answer> findAll() {
-        return answerService.findAll();
+    public Iterable<SearchResult> findAll() {
+        List<SearchResult> l = new LinkedList<>();
+        for (Answer a : answerService.findAll()) {
+            l.add(new SearchResult(a.getMsg(), a.getImg()));
+        }
+        return l;
     }
 
     @PostMapping
